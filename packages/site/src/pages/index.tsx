@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
 import {
   connectSnap,
+  getAddress,
   getSnap,
   isLocalSnap,
   sendHello,
@@ -132,6 +133,15 @@ const Index = () => {
     }
   };
 
+  const handleGetAddress = async () => {
+    try {
+      await getAddress();
+    } catch (e) {
+      console.error(e);
+      dispatch({ type: MetamaskActions.SetError, payload: e });
+    }
+  };
+
   return (
     <Container>
       <Heading>
@@ -208,6 +218,7 @@ const Index = () => {
             !shouldDisplayReconnectButton(state.installedSnap)
           }
         />
+        <button onClick={handleGetAddress}>Get Address</button>
         <Notice>
           <p>
             Please note that the <b>snap.manifest.json</b> and{' '}

@@ -20484,6 +20484,7 @@ __metadata:
     "@metamask/eslint-config-jest": ^10.0.0
     "@metamask/eslint-config-nodejs": ^10.0.0
     "@metamask/eslint-config-typescript": ^10.0.0
+    "@metamask/key-tree": ^9.0.0
     "@metamask/snaps-cli": ^0.38.2-flask.1
     "@metamask/snaps-jest": ^0.37.3-flask.1
     "@metamask/snaps-types": ^0.32.2
