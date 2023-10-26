@@ -1,9 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
 import {
   connectSnap,
   getAddress,
+  getBalance,
   getSnap,
   isLocalSnap,
   sendHello,
@@ -104,6 +105,8 @@ const ErrorMessage = styled.div`
 
 const Index = () => {
   const [state, dispatch] = useContext(MetaMaskContext);
+  const [address, setAddress] = useState('');
+  const [balance, setBalance] = useState('');
 
   const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
     ? state.isFlask
@@ -135,7 +138,10 @@ const Index = () => {
 
   const handleGetAddress = async () => {
     try {
-      await getAddress();
+      const kusamaAddress = await getAddress();
+      const kusamaBalance = await getBalance(kusamaAddress);
+      setAddress(kusamaAddress);
+      setBalance(kusamaBalance);
     } catch (e) {
       console.error(e);
       dispatch({ type: MetamaskActions.SetError, payload: e });
@@ -218,7 +224,13 @@ const Index = () => {
             !shouldDisplayReconnectButton(state.installedSnap)
           }
         />
-        <button onClick={handleGetAddress}>Get Address</button>
+        <button onClick={() => handleGetAddress()}>
+          Get Address and Balance
+        </button>
+        <ul>
+          <li>{address}</li>
+          <li>{balance}</li>
+        </ul>
         <Notice>
           <p>
             Please note that the <b>snap.manifest.json</b> and{' '}

@@ -1,6 +1,8 @@
 import { OnRpcRequestHandler } from '@metamask/snaps-types';
 import { panel, text } from '@metamask/snaps-ui';
+import { assert, object, string } from 'superstruct';
 import getAddress from '../rpc/getAddress';
+import { getBalance } from '../rpc/getBalance';
 /**
  * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
  *
@@ -32,6 +34,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
       });
     case 'getAddress':
       return await getAddress();
+    case 'getBalance':
+      assert(request.params, object({ address: string() }));
+      return await getBalance(request.params.address);
 
     default:
       throw new Error('Method not found.');

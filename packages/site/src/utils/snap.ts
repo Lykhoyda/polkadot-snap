@@ -63,14 +63,25 @@ export const sendHello = async () => {
   });
 };
 
-export const getAddress = async () => {
+export const getAddress = async (): Promise<string> => {
   const address = await window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: { snapId: defaultSnapOrigin, request: { method: 'getAddress' } },
   });
 
-  console.log('address', address);
-  return address;
+  return address as string;
+};
+
+export const getBalance = async (address: string) => {
+  const balance = await window.ethereum.request({
+    method: 'wallet_invokeSnap',
+    params: {
+      snapId: defaultSnapOrigin,
+      request: { method: 'getBalance', params: { address } },
+    },
+  });
+
+  return balance as string;
 };
 
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');
