@@ -12,12 +12,10 @@ async function getAddress() {
   const deriveAddressKey = await getBIP44AddressKeyDeriver(polkadotTypeNode);
   const addressKey0 = await deriveAddressKey(0);
 
-  console.info('addressKey0 Hardened', addressKey0.address);
-
   const keyring = new Keyring({ ss58Format: 2 });
 
   if (!addressKey0.privateKeyBytes) {
-    throw new Error('No private key');
+    throw new Error('No private key found');
   }
 
   return keyring.addFromSeed(addressKey0.privateKeyBytes).address;
