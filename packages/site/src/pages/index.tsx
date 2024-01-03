@@ -9,6 +9,7 @@ import {
   isLocalSnap,
   sendHello,
   shouldDisplayReconnectButton,
+  transfer,
 } from '../utils';
 import {
   ConnectButton,
@@ -26,6 +27,7 @@ const Container = styled.div`
   flex: 1;
   margin-top: 7.6rem;
   margin-bottom: 7.6rem;
+
   ${({ theme }) => theme.mediaQueries.small} {
     padding-left: 2.4rem;
     padding-right: 2.4rem;
@@ -50,6 +52,7 @@ const Subtitle = styled.p`
   font-weight: 500;
   margin-top: 0;
   margin-bottom: 0;
+
   ${({ theme }) => theme.mediaQueries.small} {
     font-size: ${({ theme }) => theme.fontSizes.text};
   }
@@ -79,6 +82,7 @@ const Notice = styled.div`
   & > * {
     margin: 0;
   }
+
   ${({ theme }) => theme.mediaQueries.small} {
     margin-top: 1.2rem;
     padding: 1.6rem;
@@ -95,6 +99,7 @@ const ErrorMessage = styled.div`
   margin-top: 2.4rem;
   max-width: 60rem;
   width: 100%;
+
   ${({ theme }) => theme.mediaQueries.small} {
     padding: 1.6rem;
     margin-bottom: 1.2rem;
@@ -107,6 +112,8 @@ const Index = () => {
   const [state, dispatch] = useContext(MetaMaskContext);
   const [address, setAddress] = useState('');
   const [balance, setBalance] = useState('');
+  const [transferValue, setTransferValue] = useState('');
+  const [toAddress, setToAddress] = useState('');
 
   const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
     ? state.isFlask
@@ -224,13 +231,42 @@ const Index = () => {
             !shouldDisplayReconnectButton(state.installedSnap)
           }
         />
-        <button onClick={() => handleGetAddress()}>
-          Get Address and Balance
-        </button>
-        <ul>
-          <li>{address}</li>
-          <li>{balance}</li>
-        </ul>
+        <CardContainer>
+          <Notice>
+            <ul>
+              <li>Address: {address}</li>
+              <li>Balance: {balance}</li>
+            </ul>
+            <button
+              style={{ marginTop: '20px' }}
+              onClick={() => handleGetAddress()}
+            >
+              Get Address and Balance
+            </button>
+          </Notice>
+          <Notice style={{ display: 'flex', flexDirection: 'column' }}>
+            <label>
+              <p>To Address</p>
+              <input
+                value={toAddress}
+                onChange={(e) => setToAddress(e.target.value)}
+              />
+            </label>
+            <label>
+              <p>Amount</p>
+              <input
+                value={transferValue}
+                onChange={(e) => setTransferValue(e.target.value)}
+              />
+            </label>
+            <button
+              style={{ marginTop: '20px' }}
+              onClick={() => transfer(toAddress, transferValue)}
+            >
+              Transfer Funds
+            </button>
+          </Notice>
+        </CardContainer>
         <Notice>
           <p>
             Please note that the <b>snap.manifest.json</b> and{' '}

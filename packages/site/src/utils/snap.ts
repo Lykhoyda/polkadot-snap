@@ -1,7 +1,6 @@
 import { MetaMaskInpageProvider } from '@metamask/providers';
 import { defaultSnapOrigin } from '../config';
 import { GetSnapsResponse, Snap } from '../types';
-
 /**
  * Get the installed snaps in MetaMask.
  *
@@ -82,6 +81,16 @@ export const getBalance = async (address: string) => {
   });
 
   return balance as string;
+};
+
+export const transfer = async (to: string, amount: string) => {
+  await window.ethereum.request({
+    method: 'wallet_invokeSnap',
+    params: {
+      snapId: defaultSnapOrigin,
+      request: { method: 'transfer', params: { to, amount } },
+    },
+  });
 };
 
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');
