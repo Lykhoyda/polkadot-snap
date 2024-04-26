@@ -4,7 +4,10 @@ Repository with the code for a video tutorial https://youtu.be/vyb1wVFahvM
 
 Check the advanced example here https://github.com/ChainSafe/metamask-snap-polkadot
 
+Additional links and resources for this repository:
+https://blockbusted.notion.site/02-Polkadot-snap-7420f5056f2448b3a4be158930a8ebf8
 
+--- 
 
 This repository demonstrates how to develop a snap with TypeScript. For detailed instructions, see [the MetaMask documentation](https://docs.metamask.io/guide/snaps.html#serving-a-snap-to-your-local-environment).
 
