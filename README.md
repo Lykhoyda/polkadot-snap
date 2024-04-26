@@ -1,4 +1,4 @@
-Polkadot Metamask Snap
+# Metamask Polkadot Snap
 
 Repository with the code for a video tutorial https://youtu.be/vyb1wVFahvM
 
