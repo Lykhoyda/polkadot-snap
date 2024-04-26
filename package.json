@@ -26,6 +26,9 @@
     "start": "yarn workspaces foreach --parallel --interlaced --verbose run start",
     "test": "echo \"TODO\""
   },
+  "dependencies": {
+    "@polkadot/api": "^10.9.1"
+  },
   "devDependencies": {
     "@metamask/eslint-config": "^10.0.0",
     "@metamask/eslint-config-jest": "^10.0.0",
@@ -47,8 +50,5 @@
   "packageManager": "yarn@3.2.1",
   "engines": {
     "node": ">=16.0.0"
-  },
-  "dependencies": {
-    "@polkadot/api": "^10.9.1"
   }
 }
